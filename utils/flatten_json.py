@@ -27,23 +27,26 @@ def flatten_outer (data):
                 flatten_inner(v, full_key)
                 
             elif isinstance(v, list):
-                #print("In list")
-                #print("key is ", full_key)
                 for i in range(0, len(v)): 
                     if (isinstance(v[i], dict)):
                         flatten_inner(v[i], full_key,index=i, tot_len=len(v))
                     else: 
-                        value_list[full_key] = v
+                        new_list = value_list[full_key] if full_key in value_list.keys() else []
+                        new_list.append(v)
+                        value_list[full_key] = new_list
+                        break
             else:
-
                 if full_key in value_list.keys():
                     placeholder_list = value_list[full_key]
-                    placeholder_list[index] = v
+                    if index == 0:
+                        placeholder_list.append(v)
+                    else:
+                        placeholder_list[index] = v
                     value_list[full_key] = placeholder_list
                 else:
                     if index == 0:
                         if tot_len == 0:
-                            value_list[full_key] = v
+                            value_list[full_key] = [v]
                         else:
                             placeholder_list = [None]*tot_len
                             placeholder_list[0] = v
@@ -55,14 +58,13 @@ def flatten_outer (data):
                         placeholder_list.append(v)
                         placeholder_list = placeholder_list + [None] * dif
                         value_list[full_key] = placeholder_list
-                
         return value_list
         
     for row in data:
         value_list = dict() #creating a value_list to store key value pairs(column values) for each record
         cv =  flatten_inner(row)
         full_list.append(cv)
-    
+        
     return full_list
 
 def df_create_clean(full_list):

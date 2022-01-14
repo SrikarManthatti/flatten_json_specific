@@ -8,7 +8,7 @@ All deeply nested key names will be appended with '.' and saved as a column name
 
 ### Extracted the fields!!! What's Next?
 
-Well!! this is the main the reason why I came up with this code. Working with dataframes, list by using apply functions to transform and enrich the data is much easier. 
+Well!!! this is the main the reason why I came up with this code. Working with dataframes, list by using apply functions to transform and enrich the data is much easier. 
 
 In many ETL tasks, this code can be used to extract the nested and deeply nested and create a normalized dataframe which can be further used in enriching and transforming the data. Since, we are preserving the structure also it should be pretty easy to use the index of the values inside the list to perform required tasks.
 
